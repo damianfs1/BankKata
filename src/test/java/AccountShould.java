@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.PrintStream;
+import java.lang.reflect.AccessibleObject;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -14,10 +15,17 @@ public class AccountShould {
         Account account = new Account();
         PrintStream ps = mock(PrintStream.class);
         account.printStatement(ps);
-        verify(ps, times(1)).print("HELLO WORLD");
+        verify(ps, times(1)).print("date || credit || debit || balance\n");
+        }
 
-
-
-    }
-
+     @Test
+    public void printStatementWithCredit(){
+         Account account = new Account();
+         PrintStream ps = mock(PrintStream.class);
+         account.setCredit(200.00f);
+         account.printStatement(ps);
+         verify(ps,times(1)).print("date || credit || debit || balance\n" +
+         "10/01/2012 || 200.00 ||  ||  200.00");
+         System.out.print();
+     }
 }
